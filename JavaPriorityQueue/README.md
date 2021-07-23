@@ -1,4 +1,11 @@
-In computer science, a priority queue is an abstract data type which is like a regular queue, but where additionally each element has a "priority" associated with it. In a priority queue, an element with high priority is served before an element with low priority. - Wikipedia
+# Java Priority Queue
+priority queue is an abstract data type which is like a regular queue, but where additionally each element has a "priority" associated with it. In a priority queue, an element with high priority is served before an element with low priority. - Wikipedia
+
+* Time Complexity : O(log(n)) where n is the number of elements in the priority queue
+* Space Complexity : O(n) where n is the number of elements in the priority queue
+* O(log n) time for the enqueing and dequeing methods (offer, poll, remove() and add)
+* O(n) for the remove(Object) and contains(Object) methods
+* O(1) for the retrieval methods (peek, element, and size)
 
 In this problem we will test your knowledge on Java Priority Queue.
 
