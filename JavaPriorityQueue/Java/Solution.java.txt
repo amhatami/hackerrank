@@ -1,0 +1,129 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.util.Comparator;
+import java.util.PriorityQueue;
+
+// Time Complexity : O(log(n)) where n is the number of elements in the priority queue
+// Space Complexity : O(n) where n is the number of elements in the priority queue
+// O(log n) time for the enqueing and dequeing methods (offer, poll, remove() and add)
+// O(n) for the remove(Object) and contains(Object) methods
+// O(1) for the retrieval methods (peek, element, and size)
+
+// define Student class
+class Student {
+    private int token;
+    private String fname;
+    private double cgpa;
+
+    // constructor 
+    public Student(int id, String fname, double cgpa) {
+        super();
+        this.token = id;
+        this.fname = fname;
+        this.cgpa = cgpa;
+    }
+    
+    // getter for token
+    public int getToken() {
+        return token;
+    }
+
+    // getter for fname
+    public String getName() {
+        return fname;
+    }
+    
+    // getter for cgpa
+    public double getCgpa() {
+        return cgpa;
+    }
+} // End class Student
+
+class Priorities {
+    
+    
+/*
+//  function sorted_array = getStudents( array ) 
+// 
+//  Author1: Amir Hatami (am.hatami@gmail.com) 
+//  Author2: I worked alone  
+//  Date:    Summer 2021 
+//  Course:  Data Structure 
+//   
+//  Function   : Sort 
+//   
+//  Description: The Sort Procedure sorts an array of 
+//               integers using the standard _bubble sort_ algorithm. 
+//  
+//  Parameters : array              - a list of students
+//   
+//  Return     : return all the students yet to be served in the priority order 
+//   
+//  Examples of Usage: 
+//   
+//     >> array = [ John Mark Shafaet Samiha Ashley Maria Anik Dan ]; 
+//     >> served_students = getStudents( array ) 
+//     ans = 
+//           [ Dan Ashley Shafaet Maria ] 
+//  
+//   
+*/
+    public List<Student> getStudents(List<String> events) {
+        PriorityQueue<Student> student_queue = new PriorityQueue(Comparator.comparing(Student::getCgpa).reversed().thenComparing(Student::getName).thenComparing(Student::getToken));
+        List<Student> students = new ArrayList<Student>();
+        for (String e: events) {
+            Scanner in =new Scanner(e);
+            String event = in.next();
+            if (event.equals("ENTER")) {
+                String name = in.next();
+                float cgpa = in.nextFloat();
+                int token = in.nextInt();
+
+                Student student = new Student(token, name, cgpa);
+                student_queue.add(student);
+            } else if (event.equals("SERVED")) {
+                Student first = student_queue.poll();
+            } in .close();
+        }
+        Student first = student_queue.poll();
+        if (first == null) {
+            return students;
+        } else {
+            while (first != null) {
+
+                students.add(first);
+                first = student_queue.poll();
+
+            }
+            return students;
+        }
+
+    }
+} // End class Priorities
+
+
+public class Solution {
+    private final static Scanner scan = new Scanner(System.in);
+    private final static Priorities priorities = new Priorities();
+    
+    public static void main(String[] args) {
+        int totalEvents = Integer.parseInt(scan.nextLine());    
+        List<String> events = new ArrayList<>();
+        
+        while (totalEvents-- != 0) {
+            String event = scan.nextLine();
+            events.add(event);
+        }
+        
+        List<Student> students = priorities.getStudents(events);
+        
+        if (students.isEmpty()) {
+            System.out.println("EMPTY");
+        } else {
+            for (Student st: students) {
+                System.out.println(st.getName());
+            }
+        }
+    }
+}
